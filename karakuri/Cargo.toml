@@ -7,7 +7,7 @@ description = "2D game engine"
 homepage = "https://github.com/IrvingWash/karakuri-rust"
 repository = "git@github.com:IrvingWash/karakuri-rust.git"
 readme = "../README.md"
-documentation = "Todo"
+documentation = "https://github.com/IrvingWash/karakuri-rust"
 license = "MIT"
 authors = ["WI"]
 
