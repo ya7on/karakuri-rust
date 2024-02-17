@@ -98,6 +98,17 @@ fn test_divide() {
 }
 
 #[test]
+fn test_translate() {
+    let mut v = Vector2::new(X1, Y1);
+    let increment = 3.;
+
+    v.translate(increment);
+
+    assert_eq!(v.x, X1 + increment);
+    assert_eq!(v.y, Y1 + increment);
+}
+
+#[test]
 fn test_to_divided() {
     let v = Vector2::new(X1, Y1);
 
@@ -105,6 +116,17 @@ fn test_to_divided() {
 
     assert_eq!(result.x, X1 / X2);
     assert_eq!(result.y, Y1 / X2);
+}
+
+#[test]
+fn test_to_translated() {
+    let v = Vector2::new(X1, Y1);
+    let increment = 3.;
+
+    let result = v.to_translated(increment);
+
+    assert_eq!(result.x, X1 + increment);
+    assert_eq!(result.y, Y1 + increment);
 }
 
 #[test]
