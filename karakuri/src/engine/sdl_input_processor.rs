@@ -14,6 +14,7 @@ impl SdlInputProcessor {
     }
 
     pub fn process(&mut self) -> InputProcessingResult {
+        #[allow(clippy::never_loop)]
         for event in self.event_pump.poll_iter() {
             match event {
                 Event::Quit { .. }

@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+    - name: Install SDL2
+      run:  sudo apt install libsdl2-dev libsdl2-2.0-0 -y;
     - name: Run build
       run: cargo build --verbose
 
