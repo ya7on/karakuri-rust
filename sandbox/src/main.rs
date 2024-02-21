@@ -1,10 +1,16 @@
-use karakuri::math::Vector2;
-use karakuri::utils::Color;
+use karakuri::{
+    utils::{Color, Resolution},
+    Engine,
+};
 
 fn main() {
-    let v = Vector2::zero();
-    let c = Color(0, 200, 200, 255);
+    let mut engine = Engine::new(
+        Some("Tree"),
+        Some(Resolution::new(1920, 1080)),
+        Some(Color::new(0, 30, 0, 255)),
+        Some(60),
+        Some(30),
+    );
 
-    println!("{:#?}", v);
-    println!("{:#?}", c);
+    engine.run();
 }

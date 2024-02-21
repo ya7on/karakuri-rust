@@ -1,10 +1,25 @@
 /// Represents RGBA color
 #[derive(Debug)]
-pub struct Color(pub u8, pub u8, pub u8, pub u8);
+pub struct Color {
+    pub r: u8,
+    pub g: u8,
+    pub b: u8,
+    pub a: u8,
+}
 
 impl Color {
-    /// Create a color array
-    pub fn to_array(&self) -> [u8; 4] {
-        [self.0, self.1, self.2, self.3]
+    pub fn new(r: u8, g: u8, b: u8, a: u8) -> Self {
+        Self { r, g, b, a }
+    }
+}
+
+pub struct Resolution {
+    pub width: u32,
+    pub height: u32,
+}
+
+impl Resolution {
+    pub fn new(width: u32, height: u32) -> Self {
+        Self { width, height }
     }
 }

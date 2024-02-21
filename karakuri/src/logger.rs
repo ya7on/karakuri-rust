@@ -1,11 +1,8 @@
 const RESET: &str = "\x1b[0m";
-#[allow(dead_code)]
 const BLUE: &str = "\x1b[34m";
 const RED: &str = "\x1b[31m";
-#[allow(dead_code)]
 const YELLOW: &str = "\x1b[33m";
 
-#[allow(dead_code)]
 pub fn log_info(message: &str) {
     log(message, BLUE);
 }
@@ -19,7 +16,6 @@ pub fn log_error(message: &str) {
     log(message, RED);
 }
 
-#[allow(dead_code)]
 pub fn log_fatal(message: &str) -> ! {
     log_error(message);
 
