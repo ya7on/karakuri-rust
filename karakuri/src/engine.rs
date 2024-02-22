@@ -3,8 +3,8 @@ use self::{
     sdl_renderer::SdlRenderer,
 };
 use crate::{
-    logger::{self, log_info},
-    math::Vector2,
+    logger,
+    toy::Toy, // TODO: delete this
     utils::{Color, Resolution},
 };
 use sdl2::Sdl;
@@ -17,6 +17,7 @@ pub struct Engine {
     renderer: SdlRenderer,
     fps_controller: SdlFpsController,
     input_processor: SdlInputProcessor,
+    toys: Vec<Toy>, // TODO: delete this
 }
 
 impl Engine {
@@ -43,6 +44,7 @@ impl Engine {
             input_processor: SdlInputProcessor::new(sdl.event_pump().unwrap_or_else(|e| {
                 logger::log_fatal(format!("Failed to get SDL2 event pump: {}", e).as_str())
             })),
+            toys: Vec::new(), // TODO: Delete this
         }
     }
 
@@ -56,14 +58,30 @@ impl Engine {
                 break;
             }
 
+            self.update(delta_time);
+
             self.renderer.start_frame();
-            log_info(format!("delta time: {}", delta_time).as_str());
-            self.renderer.render(
-                &Vector2::new(100., 100.),
-                &Vector2::new(100., 100.),
-                Color::new(170, 0, 30, 255),
-            );
+            self.draw();
             self.renderer.finish_frame();
+        }
+    }
+
+    // TODO: Delete this
+    pub fn add_toy(&mut self, toy: Toy) {
+        self.toys.push(toy);
+    }
+
+    fn update(&mut self, delta_time: f64) {
+        // TODO: Delete this
+        for toy in &mut self.toys {
+            toy.update(delta_time);
+        }
+    }
+
+    fn draw(&mut self) {
+        // TODO: Delete this
+        for toy in &self.toys {
+            self.renderer.render(&toy.position, &toy.size, &toy.color);
         }
     }
 

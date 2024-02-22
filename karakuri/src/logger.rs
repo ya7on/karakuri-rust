@@ -3,6 +3,7 @@ const BLUE: &str = "\x1b[34m";
 const RED: &str = "\x1b[31m";
 const YELLOW: &str = "\x1b[33m";
 
+#[allow(dead_code)]
 pub fn log_info(message: &str) {
     log(message, BLUE);
 }
