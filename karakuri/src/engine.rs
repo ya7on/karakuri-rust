@@ -4,6 +4,8 @@ use self::{
 };
 use crate::{
     logger,
+    math::Vector2,
+    scene::Scene,
     utils::{Color, Resolution},
 };
 use sdl2::Sdl;
@@ -13,6 +15,7 @@ mod sdl_input_processor;
 mod sdl_renderer;
 
 pub struct Engine {
+    scene: Scene,
     renderer: SdlRenderer,
     fps_controller: SdlFpsController,
     input_processor: SdlInputProcessor,
@@ -31,6 +34,7 @@ impl Engine {
         let sdl = Self::init_sdl();
 
         Self {
+            scene: Scene::new(),
             renderer: SdlRenderer::new(&sdl, title, resolution, clear_color),
             fps_controller: SdlFpsController::new(
                 sdl.timer().unwrap_or_else(|e| {
@@ -45,6 +49,10 @@ impl Engine {
         }
     }
 
+    pub fn scene(&mut self) -> &mut Scene {
+        &mut self.scene
+    }
+
     pub fn run(&mut self) {
         loop {
             let delta_time = self.fps_controller.cap_framerate();
@@ -56,7 +64,15 @@ impl Engine {
             }
 
             self.renderer.start_frame();
-            logger::log_info(format!("{}", delta_time).as_str());
+            for entity in self.scene.entities() {
+                let components = self.scene.get_components(*entity);
+
+                self.renderer.render(
+                    &components.transform.position,
+                    &Vector2::new(100., 100.),
+                    &Color::new(255, 0, 0, 255),
+                );
+            }
             self.renderer.finish_frame();
         }
     }
