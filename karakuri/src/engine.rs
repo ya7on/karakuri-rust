@@ -14,6 +14,13 @@ mod sdl_fps_controller;
 mod sdl_input_processor;
 mod sdl_renderer;
 
+#[derive(Copy, Clone, Default)]
+pub struct RenderData {
+    pub position: Vector2,
+    pub size: Vector2,
+    pub color: Color,
+}
+
 pub struct Engine {
     scene: Scene,
     renderer: SdlRenderer,
@@ -34,7 +41,7 @@ impl Engine {
         let sdl = Self::init_sdl();
 
         Self {
-            scene: Scene::new(),
+            scene: Scene::default(),
             renderer: SdlRenderer::new(&sdl, title, resolution, clear_color),
             fps_controller: SdlFpsController::new(
                 sdl.timer().unwrap_or_else(|e| {
@@ -55,7 +62,7 @@ impl Engine {
 
     pub fn run(&mut self) {
         loop {
-            let _delta_time = self.fps_controller.cap_framerate();
+            let delta_time = self.fps_controller.cap_framerate();
 
             let result = self.input_processor.process();
 
@@ -65,13 +72,14 @@ impl Engine {
 
             self.renderer.start_frame();
             for entity in self.scene.entities() {
-                let components = self.scene.get_components(*entity);
+                entity.on_step(delta_time);
 
-                self.renderer.render(
-                    &components.transform.position,
-                    &Vector2::new(100., 100.),
-                    &Color::new(255, 0, 0, 255),
-                );
+                let RenderData {
+                    position,
+                    size,
+                    color,
+                } = entity.render_data();
+                self.renderer.render(position, size, color);
             }
             self.renderer.finish_frame();
         }

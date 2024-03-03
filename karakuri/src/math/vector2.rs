@@ -3,7 +3,7 @@ const DIVISION_BY_ZERO_MESSAGE: &str = "Attempt to divide by zero";
 use crate::logger::log_error;
 
 /// Represents a two-dimensional vector
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub struct Vector2 {
     pub x: f64,
     pub y: f64,

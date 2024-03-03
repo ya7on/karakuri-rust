@@ -1,10 +1,17 @@
+use karakuri::entity::{EntityItem, EntityTrait, SpatialAddon};
 use karakuri::{
-    components::{Name, Transform},
     math::Vector2,
-    scene_objects::ComponentsPayload,
     utils::{Color, Resolution},
     Engine,
 };
+
+pub struct RedSquareEntity {}
+
+impl EntityTrait for RedSquareEntity {
+    fn on_start(&mut self) {}
+
+    fn on_step(&mut self, _delta_time: f64) {}
+}
 
 fn main() {
     let mut engine = Engine::new(
@@ -15,11 +22,21 @@ fn main() {
         Some(30),
     );
 
-    engine.scene().add_entity(ComponentsPayload {
-        name: Name(String::from("Sonic")),
-        transform: Some(Transform::new(Some(Vector2::new(100., 100.)), None, None)),
-        rigid_body: None,
-    });
+    engine.scene().add_entity(
+        EntityItem::init(RedSquareEntity {}).register_addon(SpatialAddon {
+            position: Vector2::new(100., 100.),
+            size: Vector2::new(100., 100.),
+            color: Color::new(255, 0, 0, 255),
+        }),
+    );
+
+    engine.scene().add_entity(
+        EntityItem::init(RedSquareEntity {}).register_addon(SpatialAddon {
+            position: Vector2::new(200., 200.),
+            size: Vector2::new(100., 100.),
+            color: Color::new(0, 0, 255, 255),
+        }),
+    );
 
     engine.run();
 }

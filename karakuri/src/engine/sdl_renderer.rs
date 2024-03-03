@@ -35,7 +35,7 @@ impl SdlRenderer {
         self.canvas.present();
     }
 
-    pub fn render(&mut self, position: &Vector2, size: &Vector2, color: &Color) {
+    pub fn render(&mut self, position: Vector2, size: Vector2, color: Color) {
         self.canvas
             .set_draw_color(SdlColor::RGBA(color.r, color.g, color.b, color.a));
 

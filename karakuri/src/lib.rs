@@ -6,7 +6,7 @@ pub use scene::scene_objects;
 
 pub mod components;
 mod engine;
-mod entity;
+pub mod entity;
 mod logger;
 pub mod math;
 mod scene;

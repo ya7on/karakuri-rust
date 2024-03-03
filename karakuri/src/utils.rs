@@ -1,4 +1,5 @@
 /// Represents RGBA color
+#[derive(Copy, Clone, Default)]
 pub struct Color {
     pub r: u8,
     pub g: u8,
