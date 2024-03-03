@@ -55,7 +55,7 @@ impl Engine {
 
     pub fn run(&mut self) {
         loop {
-            let delta_time = self.fps_controller.cap_framerate();
+            let _delta_time = self.fps_controller.cap_framerate();
 
             let result = self.input_processor.process();
 
